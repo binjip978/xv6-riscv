@@ -136,6 +136,7 @@ UPROGS=\
 	$U/_find\
 	$U/_xargs\
 	$U/_primes\
+	$U/_mytest\
 
 
 fs.img: mkfs/mkfs README $(UPROGS)
