@@ -23,6 +23,7 @@ char* sbrk(int);
 int sleep(int);
 int uptime(void);
 int noop(void);
+int trace(int);
 
 // ulib.c
 int stat(const char*, struct stat*);
