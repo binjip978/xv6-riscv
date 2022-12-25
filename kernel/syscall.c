@@ -103,6 +103,7 @@ extern uint64 sys_mkdir(void);
 extern uint64 sys_close(void);
 extern uint64 sys_noop(void);
 extern uint64 sys_trace(void);
+extern uint64 sys_sysinfo(void);
 
 // An array mapping syscall numbers from syscall.h
 // to the function that handles the system call.
@@ -130,6 +131,7 @@ static uint64 (*syscalls[])(void) = {
 [SYS_close]   sys_close,
 [SYS_noop]    sys_noop,
 [SYS_trace]   sys_trace,
+[SYS_sysinfo] sys_sysinfo,
 };
 
 void
@@ -195,6 +197,8 @@ syscall(void)
           printf("%d: syscall noop -> %d\n", p->pid, res); break;
         case 23:
           printf("%d: syscall trace -> %d\n", p->pid, res); break;
+        case 24:
+          printf("%d: syscall sysinfo -> %d\n", p->pid, res); break;
         default:
           printf("%d: syscall unknown -> %d\n", p->pid, res); break;
         }
