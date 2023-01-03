@@ -6,11 +6,7 @@
 
 int main(int argc, char *argv[]) {
     printf("mytest program\n");
-    struct sysinfo info;
-    if (sysinfo(&info) < 0) {
-        return -1;
-    }
-
-    printf("nproc: %d, memfree: %d\n", info.nproc, info.freemem);
+    int my_pid = ugetpid();
+    printf("my_pid: %d\n", my_pid);
     return 0;
 }
