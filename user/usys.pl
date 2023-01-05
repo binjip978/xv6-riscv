@@ -39,3 +39,4 @@ entry("uptime");
 entry("noop");
 entry("trace");
 entry("sysinfo");
+entry("pgaccess");

@@ -105,3 +105,38 @@ sys_trace(void)
   p->trace_mask = mask;
   return 0;
 }
+
+uint64 sys_pgaccess(void)
+{
+    uint64 va;
+    argaddr(0, &va);
+
+    int n;
+    argint(1, &n);
+    if (n > 64) {
+        printf("size if to large, bit mask is uint64\n");
+        return -1;
+    }
+
+    uint64 b;
+    argaddr(2, &b);
+
+    uint64 bm = 0;
+    pagetable_t pagetable = myproc()->pagetable;
+
+    for (int i = 0; i < n; i++) {
+        pte_t *p = walk(pagetable, va, 0);
+        if ((*p & PTE_A) != 0) {
+            bm = bm | (1 << i);
+            *p = (*p & ~PTE_A);
+        }
+        va += PGSIZE;
+    }
+
+    struct proc *p = myproc();
+    if (copyout(p->pagetable, b, (char *)&bm, sizeof(bm)) < 0) {
+        return -1;
+    }
+
+    return 0;
+}
